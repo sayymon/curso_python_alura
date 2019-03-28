@@ -1,0 +1,345 @@
+Python 2
+
+Definição de tipo lista : 
+
+valores = []
+>>> type(valores)
+<class 'list'>
+
+Verificar se elemento esta em uma lista
+
+"a" in "valores" - Resultado sera True
+
+Tipos de sequencias de dados list,tuple,range
+
+tuple - Lista imutavel ()
+
+set - {}
+
+Veja o mesmo exemplo, mas agora inicializando um set:
+
+colecao = {11122233344, 22233344455, 33344455566}
+
+dictionary - equivalente ao Map
+
+Para criar um dicionário devemos inicializar os instrutores de um modo um pouco diferente. Veja o código:
+
+instrutores = {'Nico' : 39, 'Flavio': 37, 'Marcos' : 30}
+Repare que usamos as chaves {} (como se fosse um set), mas sempre tem em pares. O primeiro par é 'Nico' : 39, o segundo é 'Flavio': 37, etc.
+
+Nesse par temos no lado esquerdo a chave e no lado direito o valor. Isso é importante pois usamos a chave para recuperar um valor e assim resolvemos nosso problema:
+
+instrutores['Flavio']
+Imprime:
+
+37
+Isso foi apenas uma introdução, mas não se preocupe pois veremos ainda mais sobre dicionários dentro da carreira Python 3.
+
+Realizando um laço dentro da inicialização da lista
+Quando inicializamos a lista, queremos inicializá-la com um caractere _ para cada letra na palavra secreta. Só que com Python, podemos fazer isso diretamente, dentro da inicialização da lista:
+
+palavra_secreta = "banana".upper()
+letras_acertadas = ["_" for letra in palavra_secreta]
+Essa funcionalidade do Python se chama List Comprehension, em português, Compreensão de lista.
+
+Dado o código de geração da lista de pares abaixo:
+
+inteiros = [1,3,4,5,7,8,9]
+pares = []
+for numero in inteiros:
+    if numero % 2 == 0:
+        pares.append(numero)
+O código usando List Comprehension relativo ficaria muito mais enxuto:
+
+inteiros = [1,3,4,5,7,8,9]
+pares = [x for x in inteiros if x % 2 == 0]
+
+
+Com o uso do None, indicamos que a variável já não aponta para um objeto. A palavra None é equivalente a palavra-chave nulo nas linguagens C# ou Java. Nós também removemos a seta que apontava a referência outraRef para o objeto Conta, porque já não é possível acessá-lo usando a referência outraRef.
+
+são conhecidos pelo acrônimo SOLID:
+
+S - Single responsibility principle
+O - Open/closed principle
+L - Liskov substitution principle
+I - Interface segregation principle
+D - Dependency inversion principle
+
+Definir propriedades
+
+
+    @property
+    def limite(self):
+        return self.__limite
+
+     @limite.setter
+    def limite(self, limite):
+        self.__limite = limite
+               
+Getter e setters são representados conforme acima
+
+Definir constantes variaveis estaticas
+
+Ex : 
+
+    @staticmethod
+    def codigos_bancos():
+        return {'BB': '001', 'Caixa': '104', 'Bradesco':'237'} 
+
+
+Conta.codigos_bancos()
+
+
+Herança
+
+class NomeClasse(NomeClasse Pai):
+	
+
+Para saber mais: Métodos estáticos e de classe
+PRÓXIMA ATIVIDADE
+
+Da mesma forma que temos alguns atributos diretamente da classe, e que são acessíveis sem necessidade de criar uma instância, conseguimos também criar métodos ligados à classe.
+
+Há duas formas de criar estes métodos:
+
+Métodos de classe
+São métodos decorados com @classmethod. Quando criamos um método de classe, temos acesso aos atributos da classe. Da mesma forma com os atributos de classe, podemos acessar estes métodos de dentro dos métodos de instância, a partir de __class__, se desejarmos:
+
+class Funcionario:
+    prefixo = 'Instrutor'
+
+    @classmethod
+    def info(cls):
+        return f'Esse é um {cls.prefixo}'
+Perceba que, ao invés de self, passamos cls para o método, já que neste caso sempre recebemos uma instância da classe como primeiro argumento. O nome cls é uma convenção, assim como self.
+
+Métodos estáticos
+A outra forma de criar métodos ligados à classe é com a decoração @staticmethod. Veja abaixo:
+
+class FolhaDePagamento:
+    @staticmethod
+    def log():
+        return f'Isso é um log qualquer'
+Note que, no caso acima, não precisamos passar nenhum primeiro argumento fixo para o método estático. Nesse caso, não é possível acessar as informações da classe, porém o método estático é acessível a partir da classe e também da instância.
+
+Cuidados a tomar...
+Sempre que você usar métodos estáticos em classes que contém herança, observe se não está tentando acessar alguma informação da classe a partir do método estático, pois isso pode dar algumas dores de cabeça pra entender o motivo dos problemas.
+
+Alguns pythonistas não aconselham o uso do @staticmethod, já que poderia ser substituído por uma simples função no corpo do módulo. Outros mais puristas entendem que os métodos estáticos fazem sentido, sim, e que devem ser vistos como responsabilidade das classes.
+
+
+Para implementarmos o if em uma única linha, começaremos com o valor que queremos exibir, no caso, programa.duracao, apenas se a duração existir. E então usaremos o hasattr() passando como parâmetros o objeto (o) e o nome que queremos saber se o objeto possui (name).
+
+O if, então, retornará duracao, caso houver. Caso contrário (else), será devolvido programa.temporadas.
+
+filmes_e_series = [vingadores, atlanta]
+
+for programa in filmes_e_series:
+    detalhes = programa.duracao if hasattr(programa, 'duracao') else programa.temporadas
+    print(f'{programa.nome} - {detalhes} D - {programa.likes}')
+
+__str__ é o toString do python
+
+repr demonstra a estrutura do objeto instancia e atributos
+
+
+def __getitem__(self, item):
+    return self._programas[item]
+
+Iterable definido acima     
+
+
+duck typing
+
+Duck Typing com Python
+Python é uma linguagem dinamcamente tipada que não possui interfaces. Essas características da linguagem deixam claro que Python não implementa polimorfismo da mesma forma que linguagens como Java e PHP: utiliza Duck Typing.
+
+ 
+O que é?
+Duck typing é um estilo de codificação de linguagens dinamicamente tipadas onde o tipo de uma variável não importa, contanto que seu comportamento seja o desejado. O nome "tipagem de pato" vem da expressão "se anda como pato, nada como um pato e faz quack como um pato, então provavelmente é um pato".
+
+Quando criamos uma função ou um método em Python o tipo do parâmetro não é a parte importante, mas o que realmente importa é se o mesmo vai possuir os métodos e atributos esperados:
+
+def realizar_operacao(operacao, **kwargs):
+    operacao.realizar(**kwargs)
+A função realizar_operacao é um exemplo de como duck typing é aplicado: ela recebe como parâmetro o objeto operacao e executa o método realiza sem se importar com o tipo do objeto.
+
+É interessante notar que realizar_operacao utiliza a variável mágica **kwargs, que recebe qualquer número de parâmetros nominais após passado o objeto referente à operação, não importando quais sejam.
+
+Essa função pode ser implementada para realizar uma transferência, como vemos a seguir:
+
+transferencia = Transferencia()
+realizar_operacao(
+    transferencia,
+    conta_origem='14725-8',
+    conta_destino='85296-3',
+    valor=10000
+)
+A função também pode ser implementada para realizar um depósito simples:
+
+deposito = Deposito()
+realiza_operacao(
+    deposito,
+    conta_destino='85296-3',
+    valor=10000
+)
+Melhor pedir perdão que permissão
+Quando estamos trabalhando com tipagem estática, o comum é utilizar uma interface como um contrato, definindo os atributos e métodos obrigatórios, e esperar que o objeto sendo recebido seja do tipo de uma classe que implemente esta interface, garantindo que o objeto que estamos recebendo tenha o comportamento esperado.
+
+Observe o exemplo em Java a seguir:
+
+public interface Pagamento {
+ 
+    void realizar();
+}
+ 
+public class Deposito implements Pagamento {
+ 
+    @Override
+    public void realizar() {
+        System.out.println("Deposito::realizar");
+    }
+}
+ 
+ 
+public class Transferencia implements Pagamento {
+ 
+    @Override
+    public void realizar() {
+        System.out.println("Transferencia::realizar");
+    }
+}
+Veja que são criadas a interface de Pagamento, que define o contrato das classes que devem ter o método realizar, e duas classes que a implementam.
+
+public class Billing {
+ 
+    public void realizarPagamento(Pagamento operacao) {
+        operacao.realizar();
+    }
+}
+Criamos a classe Billing que recebe um objeto que implementa a interface Pagamento e executa o método realizar deste objeto.
+
+public class Main {
+    public static void main(String args[]) {
+        Billing billing = new Billing();
+        Deposito deposito = new Deposito();
+        Transferencia transferencia = new Transferencia();
+        billing.realizarPagamento(deposito);
+        billing.realizarPagamento(transferencia);
+    }
+}
+Por fim é implementado um objeto da classe Billing que realiza uma transferência e um pagamento.
+
+Esse tipo de abordagem evita erros, como executar um método no objeto recebido que não existe. Como Python não possui suporte a interfaces, a abordagem para prevenir problemas como executar um método que não existe em um objeto segue outro tipo de prática: a EAFP.
+
+EAFP (easier to ask for forgiveness than permissione), do inglês "Melhor pedir perdão que permissão", é um estilo de codificação que envolve assumir que os comportamentos desejados em um determinado objeto existem e qualquer problema relacionado é tratado como uma exceção, assim o código se mantém limpo, conciso e legível.
+
+A seguir temos o exemplo prévio traduzido em Python:
+
+class Deposito:
+    def realizar(self):
+        print("Deposito::realizar")
+ 
+class Transferencia:
+    def realizar(self):
+        print("Transferencia::realizar")
+Temos as classes das operações praticamente idênticas ao exemplo em Java:
+
+class Billing:
+    def realizar_pagamento(self, operacao):
+        try:
+            operacao.realizar()
+        except AttributeError:
+            print('a operação não pôde ser realizada')
+O método realizar_pagamento da classe Billing recebe a operação como parâmetro, porém não espera um tipo específico, mas sim executa dentro de uma declaração try/except: se o método não existir, uma exceção do tipo AttributeError será disparada e capturada pelo except, então uma mensagem será impressa informando que há um problema.
+
+def main():
+    billing = Billing()
+    deposito = Deposito()
+    transferencia = Transferencia()
+    billing.realizar_pagamento(deposito)
+    billing.realizar_pagamento(transferencia)
+ 
+ 
+     if __name__ == "__main__":
+    main()
+Por fim, implementamos as classes em nossa função main da mesma forma que no exemplo em Java.
+
+Conclusão
+Python é uma linguagem singular com toda uma forma de programar e uma cultura interna, o jeito "pythônico", de como escrever o código e implementar boas práticas. É interessante ressaltar que essa cultura de boas práticas agrega uma importância fundamental à legibilidade do código.
+
+Vale citar que tanto a comunidade quanto o próprio time de desenvolvimento seguem a filosofia deixada por um de seus criadores: o Zen do Python, que pode ser acessado ao digitar o comando import this em um terminal interativo do Python:
+
+
+
+Para quê?	Método
+Inicialização	__init__
+Representação	__str__, __repr__
+Container, sequência	__contains__, __iter__, __len__, __getitem__
+Numéricos	__add__, __sub__, __mul__, __mod__
+
+
+
+Classes ABC - Abstract Base Classes 
+
+Existem algumas classes abstratas denominadas ABC, acrônimo para Abstract Base Classes.
+
+No Python, não é muito aconselhável criar nossas próprias classes abstratas, por ser um aspecto mais avançado da linguagem, já que lidaremos com metaprogramação, e afins. O Python recomenda que, caso queiramos criar uma classe que dependa de outra, precisamos checar se já não existe uma destas classes base prontas para uso.
+
+Se importarmos um pacote collections.abc, por exemplo, que contém diversas classes que podem ser utilizadas, inclusive o MutableSequence, uma sequência mutável cujos valores podem ser alterados:
+
+from collections.abc import MutableSequence
+Digamos que iremos criar nossa Playlist novamente, e ela não contém nada. Se queremos herdar de MutableSequence, que não possui apenas métodos abstratos, mas também comportamentos, os quais queremos absorver, teremos algo como:
+
+class Playlist(MutableSequence):
+    pass
+E se executarmos o código acima, teoricamente o programa acusaria um erro, certo?
+
+No entanto, o que acontece é que ele roda sem problemas, pois o Python, de novo, é uma linguagem compilada e dinâmica, e permite a execuções diretas. Sua tipagem é dinâmica e, neste caso, não temos como validar nada.
+
+Para isso, já que a classe está implementando o MutableSequence corretamente, precisaremos criar o objeto desta classe:
+
+filmes = Playlist()
+Feito isso, ao executarmos novamente, o erro que recebemos é o seguinte:
+
+TypeError: Can't instantiate abstract class Playlist with abstract methods __delitem__, __getitem__, __len__, __setitem__, insert
+
+Ou seja, são indicados todos os métodos que precisam ser implementados para podermos herdar o comportamento ou funcionamento da MutableSequence. Deste modo, entendemos que, tendo um pacote collections.abc, precisamos saber se há alguma coleção a ser implementada, ou algo a ser reforçado para que a classe implemente corretamente, o que será buscado no pacote de coleções.
+
+No caso de tentarmos implementar MutableSequence, seremos avisados das funções e métodos que também precisam ser implementados na nossa classe para que ela se comporte perfeitamente, como uma classe ABC.
+
+Este conceito surgiu para complementar a ideia do duck typing, pois existem algumas validações que precisamos fazer dependendo daquilo que estivermos criando em nosso sistema, que o duck typing ainda não nos garante.
+
+Pode até ser que tenhamos o comportamento do __getitem__(), por exemplo, mas pode ser que queiramos outros, e validar se aquele objeto realmente os possui. E se herdarmos diretamente, teremos os comportamentos, mas tampouco teremos a garantia do tipo específico do objeto de que estamos herdando, isto é, da superclasse.
+
+Neste caso, estamos reforçando a validação e inspecionando a classe de alguma maneira, por meio da abstract base class para saber se ela implementa tais métodos. Inclusive, elas não existem apenas em collections.abc, e sim, no caso, de from numbers import Complex também.
+
+Assim, se criarmos uma classe Numero que herda de Complex, quando quisermos criar filmes = Numero(), receberemos o mesmo erro que houve com Playlist. Isso nos indica que podemos ter o mesmo funcionamento de uma classe abstrata do Java, para garantirmos uma ideia de comportamento a ser seguido.
+
+No caso de termos uma classe abstrata, poderíamos criar um __getitem__() que recebe um item, como em:
+
+from numbers import Complex
+class Numero(Complex):
+    def __getitem__(self, item):
+        super().__getitem__()
+Também poderemos usar o super(), mas... Ele não era abstrato? Sendo assim, somos forçados a implementá-lo? Em super(), existe implementação?
+
+Diferentemente do Java, no Python, pode ter uma implementação na classe que possui o método abstrato. Ou seja, se este for o caso, poderemos aproveitar esta implementação; seria um início para podermos cuidar de algo. Neste exemplo, uma parte de __getitem__() já está implementada, e podemos continuar implementando, ou modificá-la.
+
+No entanto, para isto é preciso consultar a documentação destas classes. O PyCharm possui uma facilidade, que é clicar no nome da classe, o que nos levará à sua documentação, a doc string, uma string de documentação.
+
+Veremos inclusive que algumas abstract base classes herdam de mais de uma classe, aspecto do Python que também não costumamos conhecer quando estamos mais familiarizados com outra linguagem de programação.
+
+Para fazer isso, o nosso código ficaria assim:
+
+from abc import ABCMeta, abstractmethod 
+class Programa(metaclass = ABCMeta): 
+    @abstractmethod 
+    def __str__(self): 
+        pass
+
+
+Herança Multipla utiliza o MRO
+
+Mixin classes simples para inserir comportamentos simples entre classes
+        
