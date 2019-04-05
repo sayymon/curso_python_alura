@@ -1,0 +1,179 @@
+Flask microframework para python completo e simples para aplicações web
+
+flexivel e dinamico para montagem de soluções
+
+
+Instalar e ou Atualizar o pip
+pip install --upgrade pip
+
+O pip é o gerenciador de pacotes do python e acesso o índice de pacotes python (pypi)
+
+O pip é uma ferramenta muito prática para instalar pacotes python de terceiros. Com ele, conseguimos fazer definições de versão como vimos no vídeo.
+
+pip3 install flask==0.12.2
+Existem mais formas de definir ou restringir versões a serem instaladas no seu ambiente. Vamos ver alguns exemplos:
+
+~=: versão compatível - pode ser qualquer versão mais atual que não quebre compatibilidade com a definida.
+# pegaria a 0.11.1 que é última versão compatível com a 0.11.0
+pip3 install flask~=0.11.0 
+==: versão exata - define uma versão fixa que deve ser instalada (como vimos no vídeo).
+!=: exclusão de versão - define a versão que não é para instalar, pegando assim a mais atual sem ser a definida.
+<=, >=: versão maior ou igual e menor ou igual - ajuda a restringir versões, inclusive a definida.
+<, >: versão maior ou menor - ajuda a restringir versões, excluindo a definida.
+
+--Instalar o flask através do pip versão fixa
+pip3 install flask==0.12.2
+
+--Instalar ele com a ultima versão
+pip3 install flask
+
+
+Criar uma app simples
+
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route('/inicio')
+def ola():
+    return "<h1>ola Flask</h1>"
+
+app.run()
+
+
+Trabalha com rotas - http://127.0.0.1:5000/inicio
+
+
+todas as paginas html devem estar dentro da pasta TEMPLATES por default
+O nome convencionado de pastas para páginas dinâmicas é TEMPLATES e as funções devem ter uma configuração como "@app.route('/caminho')" para definir que é uma rota da app.
+
+a função render_template define a rota e para qual html deve ser renderizado
+
+função run e algumas alternativas :
+
+Para definir a porta como 8080 e o host como 0.0.0.0 devemos chamar o run da seguinte maneira.
+
+# trecho da app
+app.run(host='0.0.0.0', port=8080)
+
+
+#Habilitar o debug para não ficar reiniciando toda vez o server para atualizar automaticamente
+app.run(debug=True)
+
+Para adicionar conteudos dinamicos na pagina html utilizar a diretiva : {{}}
+
+Lib responsável por prover o databind de variaveis entre o html e o python Jinja2
+
+O Jinja2 é o motor de templates do Flask. Ele nos ajuda com diversos helpers enquanto projetamos nossos HTML de forma mais dinâmica.
+
+Um exemplo de facilidade que temos nos templates é a idéia de filtrar um conteúdo que vem do servidor, o conteúdo de uma variável que será impressa no HTML.
+
+Temos um trecho de código da nossa aplicação aqui:
+
+<h1>{{  titulo  }}</h1>
+Imagine que precisamos fazer todo título de página ser iniciado com letra maiúscula no nosso template. Podemos fazer o seguinte, no trecho de código que imprime o título.
+
+<h1>{{  titulo|title  }}</h1>
+Muito tranquilo de fazer esta melhoria, não é? Tem vários outros filtros que podem ajudar, como:
+
+upper: colocar os caracteres em caixa alta
+round: arredondar números
+trim: remover espaços do início e do fim do texto
+default('texto exibido por padrão') - quando queremos mostrar algo, caso a variável esteja vazia ou nula.
+
+
+Metodo redirect serve para apontar para uma nova Rota Ex : 
+
+@app.route('/livro', methods=['POST',])
+def livro():
+    encontrado = achar_livro(request.form['nome_do_livro'])
+    if encontrado: 
+        return render_template('livro.html', livro=encontrado)
+    else:
+        return redirect('/apostilas')
+
+
+ 
+O Flask trabalha com templates:
+
+Arquivo de template :
+
+
+
+Arquivo que herda o template : 
+
+{%extends "template.html"%}
+{%block conteudo%}
+
+{%endblock%}
+
+
+url_for para gerenciar os caminhos relativos
+
+Ex : 
+
+href="{{ url_for('static', filename='bootstrap.css') }}"
+
+
+o objeto session é acessivel no flask através do import 
+
+Ex : from flask import Flask, session
+
+Mais precisa de uma secret key para acessar a session
+
+app.secret_key = 'saymon'
+
+
+recuperar parametros enviados em um formulario get com flask
+
+dados = request.args.get('info')
+
+Configurar o banco de dados com o Python flask
+
+
+instalar o flask mysql
+
+pip3 install flask_mysqldb
+
+Caso de algum problema basta executar
+
+sudo apt-get install python3.7-dev
+sudo apt-get install libmysqlclient-dev
+pip3 install mysqlclient
+
+Criar o connect 
+
+cursor = conn.cursor()
+cursor.execute('INSERT INTO usuario (id, nome, senha) '
+        'VALUES (%s, %s, %s)'
+        , ('luan', 'Luan Marques, 'flask')))
+conn.commit()
+
+
+
+Configurar o flaskapp para acessar as configurações de banco e criar uma conection
+
+app.config.update(
+    'MYSQL_HOST'='0.0.0.0',
+    'MYSQL_USER'='root',
+    'MYSQL_PASSWORD'='sa11y12mon92',
+    'MYSQL_DB'='jogoteca',
+    'MYSQL_PORT'='3306'
+)
+
+db = MySQL(app)
+
+OU
+
+app.config['MYSQL_HOST'] = "0.0.0.0"
+app.config['MYSQL_USER'] = "root"
+app.config['MYSQL_PASSWORD'] = "sa11y12mon92"
+app.config['MYSQL_DB'] = "jogoteca"
+app.config['MYSQL_PORT'] = 3306
+
+db = MySQL(app)
+
+
+Framework para gerenciamento do banco de dados com Python
+
+SQLAlchemy
